@@ -13,7 +13,7 @@ import logging
 
 
 # Función para log
-def display_log(message):
+def display_log(message: str):
     """Función dedicada a logging para un mayor seguimiento del proceso.
 
     Args:
