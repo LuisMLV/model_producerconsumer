@@ -1,17 +1,14 @@
 """
-PRUEBA TÉCNICA SCALIAN
-
 Clásico problema productor - consumidor.
 
-Subir a un repositorio GIT el desarrollo de una cola consumidora, que al consumir, ejecute una función cuya
-entrada será el objeto consumido. Por tanto se ejecutará tantas veces como objetos se publiquen en la misma.
-Extra deseable: permitir seleccionar el número de procesos que consumen de la cola para aumentar el paralelismo
+Desarrollo de una cola consumidora que al consumir ejecute una función cuya entrada será el objeto consumido. 
+Por tanto se ejecutará tantas veces como objetos se publiquen en la misma. Extra deseable: permitir seleccionar 
+el número de procesos que consumen de la cola para aumentar el paralelismo
 
 """
 
-from multiprocessing import Process
 import multiprocessing
-from multiprocessing import Queue
+from multiprocessing import Process, Queue
 import logging
 
 
@@ -36,12 +33,13 @@ def produce_queue(queue_to_produce: Queue,
     """Función productor. Produce la cola de items a ser consumidos.
 
     Args:
-        queue_to_produce: queue que contendrá los items a consumir.
+        queue_to_produce: queue/cola que contendrá los items a consumir.
         max_prod_items: número máximo de items a producir.
         finish: cola cuyo contenido servirá para informar acerca del estado de completitud del productor.
 
     """
     finish.put(False)
+    
     for number in range(max_prod_items):
         display_log(f'produce item: {number}')
         queue_to_produce.put(number)
@@ -63,9 +61,7 @@ def get_x2(item: int) -> int:
 
     """
     operation = item * 2
-
-    display_log(f'Product x2: {operation}')
-
+    
     return operation
 
 
@@ -76,7 +72,7 @@ def consume_queue(queue_to_consume: Queue,
 
     Args:
         queue_to_consume: Cola con los items a consumir.
-        finish: lista que informa acerca del estado de progreso del paso anterior de producción.
+        finish: lista que informa acerca del estado de progreso del paso de producción.
 
     """
     while True:
